@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>TikTok login</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.6;color:#1b2430;background:#fff}
+textarea{width:100%;height:120px;font:13px monospace;box-sizing:border-box}
+button{font-size:16px;padding:8px 18px;margin-top:8px;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>TikTok login</h1>
+<p id="msg">Copy this whole address and paste it into PowerShell at <b>address:</b></p>
+<textarea id="url" readonly></textarea>
+<br><button id="copy">Copy</button> <span id="done"></span>
+<script>
+// Nothing is sent anywhere: the page only shows its own address so you can copy it.
+var u = location.href, box = document.getElementById("url");
+box.value = u;
+if (u.indexOf("code=") < 0) {
+  document.getElementById("msg").textContent = "No login code in this address. Start again with: auth tiktok";
+}
+document.getElementById("copy").onclick = function () {
+  box.select();
+  (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).catch(function () { document.execCommand("copy"); });
+  document.getElementById("done").textContent = "Copied";
+};
+</script>
+</body>
+</html>
